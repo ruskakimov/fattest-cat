@@ -1,22 +1,21 @@
 {
-  "name": "fattest-cat",
-  "version": "1.0.3",
-  "description": "Find fattest cat currently up for adoption at SF SPCA.",
+  "name": "scrawniest-dog",
+  "version": "1.0",
+  "description": "Find scrawniest dog currently up for adoption at SF SPCA.",
   "bin": "index.js",
   "main": "index.js",
-  "repository": "lexiross/fattest-cat",
+  "repository": "ruskakimov/scrawniest-dog",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
-  "author": "Lexi Ross",
+  "author": "Lexi Ross + Rustem Kakimov",
   "keywords": [
-    "cat",
-    "cats",
+    "dog",
+    "dogs",
     "spca",
-    "fat",
-    "fatter",
-    "fattest",
-    "meow"
+    "scrawny",
+    "scrawniest",
+    "woof"
   ],
   "license": "ISC",
   "dependencies": {
