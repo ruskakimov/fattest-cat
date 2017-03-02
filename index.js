@@ -34,7 +34,7 @@ const fetchDogs = () => fetchDogsHelper(0, []);
 console.log("Accessing San Francisco SPCA (dog Department)...");
 
 fetchDogs()
-  .then(uniq) // NO DOUBLE DOGS
+  .then(uniq) // NO DOG DUPLICATES
   .tap((dogs) => console.log(`Dog information system accessed. ${dogs.length} dogs found. Beginning weighing process...`))
   .map((url) => {
     return request.get(url)
