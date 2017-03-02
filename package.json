@@ -1,6 +1,6 @@
 {
   "name": "scrawniest-dog",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "Find scrawniest dog currently up for adoption at SF SPCA.",
   "bin": "index.js",
   "main": "index.js",
