@@ -31,7 +31,7 @@ const fetchDogsHelper = Promise.method((pageNumber, dogsSoFar) => {
 });
 const fetchDogs = () => fetchDogsHelper(0, []);
 
-console.log("Accessing San Francisco SPCA (dog Department)...");
+console.log("Accessing San Francisco SPCA (Dog Department)...");
 
 fetchDogs()
   .then(uniq) // NO DOG DUPLICATES
@@ -46,10 +46,12 @@ fetchDogs()
         const weight = $(".field-name-field-animal-weight .field-item").text();
         const lbs = Number(/(\d+)lbs\./.exec(weight)[1]);
         const oz = /(\d+)oz\./.test(weight) ? Number(/(\d+)oz\./.exec(weight)[1]) : 0;
+        const ozWeight = lbs * 16 + oz;
         const isFemale = $(".field-name-field-gender .field-item").text().trim() === "Female";
 
-        console.log("Weighing dog:", name);
-        return {name, lbs, oz, isFemale, url}
+        console.log("Weighing dog:", name, `– ${lbs} lbs ${oz} oz`);
+
+        return {name, lbs, oz, isFemale, url, ozWeight}
       })
       // Null for dogs that cannot be parsed.
       .catch(() => {});
@@ -57,13 +59,10 @@ fetchDogs()
   // Filter out unparsable dogs.
   .then(compact)
   .then((dogs) => {
-    let fattestDog = {lbs: 0, oz: 0};
-    dogs.forEach((dog) => {
-      if (dog.lbs > fattestDog.lbs || (dog.lbs === fattestDog.lbs && dog.oz > fattestDog.oz)) {
-        fattestDog = dog;
-      }
-    });
-    console.log(`The fattest dog is ${fattestDog.name}. ${(fattestDog.isFemale ? "She" : "He")} weighs ${fattestDog.lbs} lbs and ${fattestDog.oz} oz.`);
+    const scrawniestDog = dogs.reduce((currentScrawniest, dog) => {
+      return (dog.ozWeight < currentScrawniest.ozWeight) ? dog : currentScrawniest;
+    }, dogs[0]);
+    console.log(`The scrawniest dog is ${scrawniestDog.name}. ${(scrawniestDog.isFemale ? "She" : "He")} weighs ${scrawniestDog.lbs} lbs and ${scrawniestDog.oz} oz.`);
     setTimeout(() => console.log("Opening dog profile..."), 2000);
-    setTimeout(() => opener(fattestDog.url), 4000);
+    setTimeout(() => opener(scrawniestDog.url), 4000);
   });
